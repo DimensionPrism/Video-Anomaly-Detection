@@ -1,0 +1,3 @@
+[submodule "models/Accurate-Interpretable-VAD"]
+	path = models/Accurate-Interpretable-VAD
+	url = https://github.com/talreiss/Accurate-Interpretable-VAD.git
