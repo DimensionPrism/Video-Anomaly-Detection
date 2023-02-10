@@ -1,6 +1,0 @@
-[submodule "models/Accurate-Interpretable-VAD"]
-	path = models/Accurate-Interpretable-VAD
-	url = https://github.com/talreiss/Accurate-Interpretable-VAD.git
-[submodule "models/S3R"]
-	path = models/S3R
-	url = https://github.com/louisYen/S3R.git
