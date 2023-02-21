@@ -5,12 +5,12 @@ import subprocess
 from utils.dataset_utils import count_frames, extract_shanghaitech_frames
 
 def argparser():
-    argparser = argparse.ArgumentParser()
-    argparser.add_argument('--data_directory', type=str, default='./data', help='directory for downloaded data')
-    argparser.add_argument("--dataset_name", type=str, default="ped2", help='dataset name')
-    argparser.add_argument("--download_all", type=bool, default=False, help='download all datasets')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data_directory', type=str, default='./data', help='directory for downloaded data')
+    parser.add_argument("--dataset_name", type=str, default="ped2", help='dataset name')
+    parser.add_argument("--download_all", type=bool, default=False, help='download all datasets')
 
-    args = argparser.parse_args()
+    args = parser.parse_args()
 
     return args
 
