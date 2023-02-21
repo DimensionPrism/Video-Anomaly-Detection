@@ -434,15 +434,18 @@ def get_video_dataset(args, root):
                               allow_pickle=True)
 
     if args.dataset_name == 'shanghaitech': # ShanghaiTech normalization
-        all_bboxes_train_classes = np.load(os.path.join(root, args.dataset_name, '%s_bboxes_train_classes.npy' % args.dataset_name),
+        all_bboxes_train_classes = np.load(os.path.join(root, args.dataset_name, f'{args.dataset_name}_bboxes_train_classes.npy'),
                                    allow_pickle=True)
-        all_bboxes_test_classes = np.load(os.path.join(root, args.dataset_name, '%s_bboxes_test_classes.npy' % args.dataset_name),
+        all_bboxes_test_classes = np.load(os.path.join(root, args.dataset_name, f'{args.dataset_name}_bboxes_test_classes.npy'),
                                   allow_pickle=True)
+    else:
+        all_bboxes_train_classes = None
+        all_bboxes_test_classes = None
 
     train_dataset = VideoDatasetWithFlows(dataset_name=args.dataset_name, root=root,
                                           train=True, sequence_length=0, all_bboxes=all_bboxes_train, normalize=True)
     test_dataset = VideoDatasetWithFlows(dataset_name=args.dataset_name, root=root,
                                          train=False, sequence_length=0, all_bboxes=all_bboxes_test, normalize=True)
-
+    
     return all_bboxes_train_classes, all_bboxes_test_classes,\
            train_dataset, test_dataset
