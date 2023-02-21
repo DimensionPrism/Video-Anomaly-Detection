@@ -1,3 +1,4 @@
 /models/Accurate-Interpretable-VAD/data/*/
 *.pyc
 *.tar.gz
+__pycache__/
