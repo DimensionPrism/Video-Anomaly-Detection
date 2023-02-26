@@ -6,11 +6,11 @@ import torchvision
 
 import numpy as np
 
-from .CLIP import CLIP
+from model.CLIP import CLIP
 from tqdm import tqdm
 from scipy.ndimage import uniform_filter
 
-from .video_dataset import VideoDatasetWithFlows, get_video_dataset
+from model.video_dataset import get_video_dataset
 
 def extract_velocity(flow, magnitude, orientation, orientations=8, motion_threshold=0.):
     orientation *= (180 / np.pi)
@@ -35,14 +35,14 @@ def extract_velocity(flow, magnitude, orientation, orientations=8, motion_thresh
 
     return orientation_histogram
 
-def extract(args, root):
-    video_dataset = get_video_dataset(args, root)
+def extract_features(dataset_name, dataset_root):
+    video_dataset = get_video_dataset(dataset_name, dataset_root)
     all_bboxes_train_classes = video_dataset[0]
     all_bboxes_test_classes = video_dataset[1]
     train_dataset = video_dataset[2]
     test_dataset = video_dataset[3]
 
-    if args.dataset_name == 'ped2':
+    if dataset_name == 'ped2':
         bins = 1
     else:
         bins = 8
@@ -70,7 +70,7 @@ def extract(args, root):
 
             frame_bbox = train_dataset.all_bboxes[idx]
 
-            if len(frame_bbox) > 0 and args.dataset_name == 'shanghaitech':
+            if len(frame_bbox) > 0 and dataset_name == 'shanghaitech':
                 frame_classes = all_bboxes_train_classes[idx]
                 length_y = ((frame_bbox[:,3] - frame_bbox[:,1]))
                 non_person_indices = np.where(frame_classes != 0)[0]
@@ -83,7 +83,7 @@ def extract(args, root):
                 # convert from cartesian to polar
                 _, ang = cv2.cartToPolar(img_flow[..., 0], img_flow[..., 1])
                 mag = np.sqrt(img_flow[..., 0] ** 2) + np.sqrt(img_flow[..., 1] ** 2)   # L1 Magnitudes
-                mag = mag / length_y[i] if args.dataset_name == 'shanghaitech' else mag    # ShanghaiTech normalization
+                mag = mag / length_y[i] if dataset_name == 'shanghaitech' else mag    # ShanghaiTech normalization
                 velocity_cur = extract_velocity(img_flow, mag, ang, orientations=bins)
                 train_sample_velocities.append(velocity_cur[None])
 
@@ -105,7 +105,7 @@ def extract(args, root):
 
             frame_bbox = test_dataset.all_bboxes[idx]
 
-            if len(frame_bbox) > 0 and args.dataset_name == 'shanghaitech':
+            if len(frame_bbox) > 0 and dataset_name == 'shanghaitech':
                 frame_classes = all_bboxes_test_classes[idx]
                 length_y = ((frame_bbox[:,3] - frame_bbox[:,1]))
                 non_person_indices = np.where(frame_classes != 0)[0]
@@ -118,7 +118,7 @@ def extract(args, root):
                 # convert from cartesian to polar
                 _, ang = cv2.cartToPolar(img_flow[..., 0], img_flow[..., 1])
                 mag = np.sqrt(img_flow[..., 0] ** 2) + np.sqrt(img_flow[..., 1] ** 2)
-                mag = mag / length_y[i] if args.dataset_name == 'shanghaitech' else mag   # ShanghaiTech normalization
+                mag = mag / length_y[i] if dataset_name == 'shanghaitech' else mag   # ShanghaiTech normalization
                 velocity_cur = extract_velocity(img_flow, mag, ang, orientations=bins)
                 test_sample_velocities.append(velocity_cur[None])
 
@@ -128,5 +128,7 @@ def extract(args, root):
 
     test_velocity = np.array(test_velocity)
     
-    return train_velocity, train_feature_space,\
-           test_velocity, test_feature_space
+    np.save(f'{dataset_root}/extracted_features/{dataset_name}/train/velocity.npy', train_velocity)
+    np.save(f'{dataset_root}/extracted_features/{dataset_name}/train/deep_features.npy', train_feature_space)
+    np.save(f'{dataset_root}/extracted_features/{dataset_name}/test/velocity.npy', test_velocity)
+    np.save(f'{dataset_root}/extracted_features/{dataset_name}/test/deep_features.npy', test_feature_space)
