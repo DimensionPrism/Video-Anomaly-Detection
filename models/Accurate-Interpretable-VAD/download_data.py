@@ -2,7 +2,7 @@ import os
 import argparse
 import subprocess
 
-from utils.dataset_utils import count_frames, extract_shanghaitech_frames
+from utils.preprocess_utils import count_frames, extract_shanghaitech_frames
 
 def argparser():
     parser = argparse.ArgumentParser()

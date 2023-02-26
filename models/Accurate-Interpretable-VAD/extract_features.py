@@ -7,9 +7,9 @@ import torchvision
 
 import numpy as np
 
-from models.CLIP import CLIP
+from model.CLIP import CLIP
 from tqdm import tqdm
-from models.feature_extraction import extract_velocity, extract
+from model.feature_extraction import extract_velocity, extract
 
 def argparser():
     parser = argparse.ArgumentParser()

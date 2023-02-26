@@ -6,11 +6,11 @@ import torchvision
 
 import numpy as np
 
-from .models import CLIP
+from .CLIP import CLIP
 from tqdm import tqdm
 from scipy.ndimage import uniform_filter
 
-from dataset.video_dataset import VideoDatasetWithFlows, get_video_dataset
+from .video_dataset import VideoDatasetWithFlows, get_video_dataset
 
 def extract_velocity(flow, magnitude, orientation, orientations=8, motion_threshold=0.):
     orientation *= (180 / np.pi)
