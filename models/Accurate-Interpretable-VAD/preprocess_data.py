@@ -17,7 +17,7 @@ from utils.preprocess_utils.optical_flow_utils import install_flownet2, extract_
 
 def argparser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_directory", type=str, default='./data', help='directory for downloaded data')
+    parser.add_argument("--data_root", type=str, default='./data', help='directory for downloaded data')
     parser.add_argument("--dataset_name", type=str, default="ped2", help='dataset name')
     
     parser.add_argument("--download_mode", type=int, default=1, help='0: do not download, 1: download specific data, 2: download all')
@@ -73,15 +73,15 @@ if __name__ == "__main__":
         install_detectron2()
 
     for dataset_name in dataset_names:
-        extract_bboxes(dataset_name, args.data_directory)
+        extract_bboxes(dataset_name, args.data_root)
 
     # optical flow
     if args.install_flownet2:
         install_flownet2()
     
     for dataset_name in dataset_names:
-        extract_flows(dataset_name, args.data_directory)
+        extract_flows(dataset_name, args.data_root)
 
     # feature extraction
     for dataset_name in dataset_names:
-        extract_features(args, args.data_directory)
+        extract_features(args, args.data_root)
