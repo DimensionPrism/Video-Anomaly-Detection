@@ -91,6 +91,10 @@ def extract_features(dataset_name, dataset_root):
 
             train_velocity.append(train_sample_velocities)
         train_velocity = np.array(train_velocity)
+        if not os.path.exists(f'{dataset_root}/extracted_features/{dataset_name}/train'):
+            os.makedirs(f'{dataset_root}/extracted_features/{dataset_name}/train')
+        np.save(f'{dataset_root}/extracted_features/{dataset_name}/train/velocity.npy', train_velocity)
+        np.save(f'{dataset_root}/extracted_features/{dataset_name}/train/deep_features.npy', train_feature_space)
 
         for idx in tqdm(range(len(test_dataset)), total=len(test_dataset)):
             batch, batch_flows, _ = test_dataset.__getitem__(idx)
@@ -125,10 +129,9 @@ def extract_features(dataset_name, dataset_root):
             test_sample_velocities = np.concatenate(test_sample_velocities, axis=0)
 
             test_velocity.append(test_sample_velocities)
-
-    test_velocity = np.array(test_velocity)
+        test_velocity = np.array(test_velocity)
     
-    np.save(f'{dataset_root}/extracted_features/{dataset_name}/train/velocity.npy', train_velocity)
-    np.save(f'{dataset_root}/extracted_features/{dataset_name}/train/deep_features.npy', train_feature_space)
-    np.save(f'{dataset_root}/extracted_features/{dataset_name}/test/velocity.npy', test_velocity)
-    np.save(f'{dataset_root}/extracted_features/{dataset_name}/test/deep_features.npy', test_feature_space)
+        if not os.path.exists(f'{dataset_root}/extracted_features/{dataset_name}/test'):
+            os.makedirs(f'{dataset_root}/extracted_features/{dataset_name}/test')
+        np.save(f'{dataset_root}/extracted_features/{dataset_name}/test/velocity.npy', test_velocity)
+        np.save(f'{dataset_root}/extracted_features/{dataset_name}/test/deep_features.npy', test_feature_space)
