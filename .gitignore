@@ -1,5 +1,9 @@
 /models/Accurate-Interpretable-VAD/data/*/
-/models/S3R/data/shanghaitech/i3d/
+/models/S3R/data/shanghaitech/i3d/*/
+/models/S3R/data/ucf-crime/i3d/*/
 *.pyc
 *.tar.gz
 __pycache__/
+*.png
+*.jpg
+*.gif
