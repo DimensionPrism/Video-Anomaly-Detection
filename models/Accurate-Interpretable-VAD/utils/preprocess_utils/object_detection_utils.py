@@ -32,21 +32,22 @@ def download_pretrained():
     print("downloading pretrained ResNet50-FPN")
     if not os.path.exists("./model/pre_trained/model_final_f10217.pkl"):
         p = subprocess.run(["wget", "https://dl.fbaipublicfiles.com/detectron2/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl", "-P", "./model/pre_trained/"])
-        print("ResNet50-FPN downloaded!")
+        print("ResNet50-FPN downloaded!\n")
     else:
-        print("pretrained ResNet50-FPN exists!")
+        print("pretrained ResNet50-FPN exists!\n")
     
     print("downloading FlowNet2 checkpoint...")
     if not os.path.exists("model/pre_trained/FlowNet2_checkpoint.pth.tar"):
         url = "https://drive.google.com/file/d/1hF8vS6YeHkx3j2pfCeQqqZGwA_PJq_Da/view?usp=sharing"
         output_path = "model/pre_trained/FlowNet2_checkpoint.pth.tar"
         gdown.download(url, output_path, quiet=True, fuzzy=True)
-        print("FlowNet2 checkpoint downloaded!")
+        print("FlowNet2 checkpoint downloaded!\n")
     else:
-        print("FlowNet2 checkpoint exists!")
+        print("FlowNet2 checkpoint exists!\n")
 
 def extract_bboxes(dataset_name, dataset_root):
     # extract bboxes for train data
+    print("getting bboxes_train")
     bboxes_train_output_path = os.path.join(os.path.join(dataset_root, dataset_name), '%s_bboxes_train.npy' % dataset_name)
     bboxes_train_classes_output_path = os.path.join(os.path.join(dataset_root, dataset_name), '%s_bboxes_train_classes.npy' % dataset_name)
     if not os.path.exists(bboxes_train_output_path) or not os.path.exists(bboxes_train_classes_output_path):
@@ -87,6 +88,7 @@ def extract_bboxes(dataset_name, dataset_root):
         print('bboxes_train exists!')
 
     # extract bboxes for test data
+    print("getting bboxes_test")
     bboxes_test_output_path = os.path.join(os.path.join(dataset_root, dataset_name), '%s_bboxes_test.npy' % dataset_name)
     bboxes_test_classes_output_path = os.path.join(os.path.join(dataset_root, dataset_name), '%s_bboxes_test_classes.npy' % dataset_name)
     if not os.path.exists(bboxes_test_output_path) or not os.path.exists(bboxes_test_classes_output_path):
