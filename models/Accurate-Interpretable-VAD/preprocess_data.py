@@ -84,4 +84,4 @@ if __name__ == "__main__":
 
     # feature extraction
     for dataset_name in dataset_names:
-        extract_features(args, args.data_root)
+        extract_features(dataset_name, args.data_root)
