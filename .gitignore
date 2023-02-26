@@ -1,4 +1,5 @@
 /models/Accurate-Interpretable-VAD/data/*/
+/models/S3R/data/shanghaitech/i3d/
 *.pyc
 *.tar.gz
 __pycache__/
