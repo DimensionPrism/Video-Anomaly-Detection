@@ -15,7 +15,7 @@ def argparser():
     return args
 
 def download_data(dataset):
-    p = subprocess.run(["sh", f"./data/{dataset}.sh"])
+    p = subprocess.run(["sh", f"./utils/download_utils/{dataset}.sh"])
 
 
 if __name__ == "__main__":
