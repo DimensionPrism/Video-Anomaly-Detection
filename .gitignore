@@ -9,3 +9,6 @@ __pycache__/
 *.gif
 *.pkl
 *.tar
+models/Accurate-Interpretable-VAD/utils/preprocess_utils/flownet_networks/channelnorm_package/*/
+models/Accurate-Interpretable-VAD/utils/preprocess_utils/flownet_networks/correlation_package/*/
+models/Accurate-Interpretable-VAD/utils/preprocess_utils/flownet_networks/resample2d_package/*/
