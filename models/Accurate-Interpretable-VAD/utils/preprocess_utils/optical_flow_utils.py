@@ -15,9 +15,6 @@ FLOWNET_INPUT_WIDTH = {"ped2": 512 * 2, "avenue": 512 * 2, "shanghaitech": 1024}
 FLOWNET_INPUT_HEIGHT = {"ped2": 384 * 2, "avenue": 384 * 2, "shanghaitech": 640}
 
 
-def install_flownet2():
-    p = subprocess.run(["sh", "./utils/preprocess_utils/install_flownet2.sh"])
-
 def extract_flows(dataset_name, dataset_root):
     # train
     of_save_dir = os.path.join(dataset_root, dataset_name, "training", "flows")

@@ -13,7 +13,7 @@ from tqdm import tqdm
 from utils.preprocess_utils.download_utils import *
 from utils.preprocess_utils.object_detection_utils import *
 from utils.preprocess_utils.feature_extraction_utils import extract_features
-from utils.preprocess_utils.optical_flow_utils import install_flownet2, extract_flows
+from utils.preprocess_utils.optical_flow_utils import extract_flows
 
 def argparser():
     parser = argparse.ArgumentParser()
@@ -22,14 +22,12 @@ def argparser():
     
     parser.add_argument("--download_mode", type=int, default=1, help='0: do not download, 1: download specific data, 2: download all')
 
-    parser.add_argument("--download_pretrained", type=bool, default=True, help='download pretrained model')
+    parser.add_argument("--download_pretrained", type=bool, default=False, help='download pretrained model')
 
     # configs for object detection
-    parser.add_argument("--install_detectron2", type=bool, default=False, help='install detectron2')
     parser.add_argument("--object_detection", type=int, default=1, help='0: no object deteciton, 1: perfor object detection for specific data, 2: perform object detection for all data')
 
     # configs for optical flow
-    parser.add_argument("--install_flownet2", type=bool, default=False, help='install flownet2')
     parser.add_argument("--extract_flow", type=int, default=1, help='0: no optical flow, 1: optical flow for specific data, 2: optical flow for all data')
 
     # configs for feature extraction
@@ -66,8 +64,6 @@ if __name__ == "__main__":
         download_pretrained()
 
     # object detection
-    if args.install_detectron2:
-        install_detectron2()
     dataset_names = ["ped2", "avenue", "shanghaitech"]
     if args.object_detection == 1:
         dataset_names = [args.dataset_name]
@@ -79,8 +75,6 @@ if __name__ == "__main__":
         print(f"{dataset_name} object detection completed!\n")
 
     # optical flow
-    if args.install_flownet2:
-        install_flownet2()
     dataset_names = ["ped2", "avenue", "shanghaitech"]
     if args.extract_flow == 1:
         dataset_names = [args.dataset_name]

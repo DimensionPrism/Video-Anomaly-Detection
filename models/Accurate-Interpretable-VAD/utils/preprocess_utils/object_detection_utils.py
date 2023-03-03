@@ -23,11 +23,6 @@ DATASET_CFGS = {
 }
 
 
-def install_detectron2():
-    print("installing detectron2...")
-    p = subprocess.check_call([sys.executable, "-m", "pip", "install", 'git+https://github.com/facebookresearch/detectron2.git', "--quiet"])
-    print("detectron2 installed!")
-
 def download_pretrained():
     print("downloading pretrained ResNet50-FPN")
     if not os.path.exists("./model/pre_trained/model_final_f10217.pkl"):
