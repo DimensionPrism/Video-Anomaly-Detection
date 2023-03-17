@@ -44,54 +44,60 @@ def argparser():
 
 if __name__ == "__main__":
     args = argparser()
+    if not args.custom_dataset:
+        # download data and frame preprocess
+        dataset_names = ["ped2", "avenue", "shanghaitech"]
+        if args.download_mode == 1:
+            dataset_names = [args.dataset_name]
+        else:
+            dataset_names = []
+        print("downloading data...")
+        for dataset_name in dataset_names:
+            download_data(dataset_name)
+            if dataset_name == "shanghaitech":
+                extract_shanghaitech_frames(args)
+            count_frames(args, dataset_name)
+        print("data downloaded!\n")
+            
+        # download pretrained model for object detection and optical flow
+        if args.download_pretrained:
+            download_pretrained()
 
-    # download data and frame preprocess
-    dataset_names = ["ped2", "avenue", "shanghaitech"]
-    if args.download_mode == 1:
-        dataset_names = [args.dataset_name]
-    else:
-        dataset_names = []
-    print("downloading data...")
-    for dataset_name in dataset_names:
-        download_data(dataset_name)
-        if dataset_name == "shanghaitech":
-            extract_shanghaitech_frames(args)
-        count_frames(args, dataset_name)
-    print("data downloaded!\n")
-        
-    # download pretrained model for object detection and optical flow
-    if args.download_pretrained:
-        download_pretrained()
+        # object detection
+        dataset_names = ["ped2", "avenue", "shanghaitech"]
+        if args.object_detection == 1:
+            dataset_names = [args.dataset_name]
+        else:
+            dataset_names = []
+        for dataset_name in dataset_names:
+            print(f"performing object detection for {dataset_name}...")
+            extract_bboxes(dataset_name, args.data_root)
+            print(f"{dataset_name} object detection completed!\n")
 
-    # object detection
-    dataset_names = ["ped2", "avenue", "shanghaitech"]
-    if args.object_detection == 1:
-        dataset_names = [args.dataset_name]
+        # optical flow
+        dataset_names = ["ped2", "avenue", "shanghaitech"]
+        if args.extract_flow == 1:
+            dataset_names = [args.dataset_name]
+        else:
+            dataset_names = []
+        for dataset_name in dataset_names:
+            print(f"extracting optical flows from {dataset_name}...")
+            extract_flows(dataset_name, args.data_root)
+            print(f"{dataset_name} optical flows extracted!\n")
+
+        # feature extraction
+        dataset_names = ["ped2", "avenue", "shanghaitech"]
+        if args.feature_extraction == 1:
+            dataset_names = [args.dataset_name]
+        else:
+            dataset_names = []
+        for dataset_name in dataset_names:
+            print(f"extracting features from {dataset_name}...")
+            extract_features(dataset_name, args.data_root)
+            print(f"{dataset_name} features extracted!\n")
     else:
-        dataset_names = []
-    for dataset_name in dataset_names:
-        print(f"performing object detection for {dataset_name}...")
+        dataset_name = "custom_dataset"
+        extract_custom_dataset_frames(dataset_name, args.data_root)
         extract_bboxes(dataset_name, args.data_root)
-        print(f"{dataset_name} object detection completed!\n")
-
-    # optical flow
-    dataset_names = ["ped2", "avenue", "shanghaitech"]
-    if args.extract_flow == 1:
-        dataset_names = [args.dataset_name]
-    else:
-        dataset_names = []
-    for dataset_name in dataset_names:
-        print(f"extracting optical flows from {dataset_name}...")
         extract_flows(dataset_name, args.data_root)
-        print(f"{dataset_name} optical flows extracted!\n")
-
-    # feature extraction
-    dataset_names = ["ped2", "avenue", "shanghaitech"]
-    if args.feature_extraction == 1:
-        dataset_names = [args.dataset_name]
-    else:
-        dataset_names = []
-    for dataset_name in dataset_names:
-        print(f"extracting features from {dataset_name}...")
         extract_features(dataset_name, args.data_root)
-        print(f"{dataset_name} features extracted!\n")
