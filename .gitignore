@@ -15,3 +15,4 @@ models/Accurate-Interpretable-VAD/utils/preprocess_utils/flownet_networks/resamp
 models/S3R/extracted_data/
 models/S3R/__MACOSX/
 *.zip
+*.pth
