@@ -14,6 +14,7 @@ train_pipeline = [
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size_divisor=32),
+    dict(type='SegRescale', scale_factor=1 / 4),
     dict(type='DefaultFormatBundle'),
     dict(
         type='Collect',
@@ -55,4 +56,4 @@ data = dict(
         img_prefix=data_root + 'val2017/',
         seg_prefix=data_root + 'annotations/panoptic_val2017/',
         pipeline=test_pipeline))
-evaluation = dict(interval=1, metric=['pq'])
+evaluation = dict(interval=1, metric=['PQ'])
