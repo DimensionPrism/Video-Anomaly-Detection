@@ -56,4 +56,6 @@ data = dict(
         img_prefix=data_root + 'val2017/',
         seg_prefix=data_root + 'annotations/panoptic_val2017/',
         pipeline=test_pipeline))
+import pdb
+pdb.set_trace()
 evaluation = dict(interval=1, metric=['PQ'])

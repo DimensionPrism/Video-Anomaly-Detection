@@ -16,3 +16,5 @@ models/S3R/extracted_data/
 models/S3R/__MACOSX/
 *.zip
 *.pth
+work_dirs/
+data/

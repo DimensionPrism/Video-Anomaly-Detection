@@ -329,7 +329,18 @@ class FasterNet(nn.Module):
             print('missing_keys: ', missing_keys)
             print('unexpected_keys: ', unexpected_keys)
 
-    def forward(self, x: Tensor) -> Tensor:
+    def forward_cls(self, x):
+        # output only the features of last layer for image classification
+        x = self.patch_embed(x)
+        x = self.stages(x)
+        x = self.avgpool_pre_head(x)  # B C 1 1
+        x = torch.flatten(x, 1)
+        x = self.head(x)
+
+        return x
+
+    def forward_det(self, x: Tensor) -> Tensor:
+        # output the features of four stages for dense prediction
         x = self.patch_embed(x)
         outs = []
         for idx, stage in enumerate(self.stages):
