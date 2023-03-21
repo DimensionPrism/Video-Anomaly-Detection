@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/models/mask2former_r50_lsj_8x2_50e_coco-panoptic.py',
+    '../__base__/models/mask2former_r50_lsj_8x2_50e_coco-panoptic.py',
     '../common/mstrain_3x_coco_panoptic.py'
 ]
 

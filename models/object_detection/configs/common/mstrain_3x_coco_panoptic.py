@@ -1,4 +1,4 @@
-_base_ = '../_base_/default_runtime.py'
+_base_ = '../__base__/default_runtime.py'
 # dataset settings
 dataset_type = 'CocoPanopticDataset'
 data_root = 'data/coco/'
