@@ -7,8 +7,6 @@ import torch
 import inspect
 import torch.nn as nn
 
-from collections import OrderedDict
-
 from typing import List
 from torch import Tensor
 from functools import partial
@@ -325,13 +323,6 @@ class FasterNet(nn.Module):
                 _state_dict = ckpt
 
             state_dict = _state_dict
-            '''
-            new_state_dict = OrderedDict()
-            for k, v in state_dict.items():
-                name = k[7:]
-                new_state_dict[name] = v
-            state_dict = new_state_dict
-            '''
             missing_keys, unexpected_keys = self.load_state_dict(state_dict, False)
 
             # show for debug
@@ -358,10 +349,6 @@ class FasterNet(nn.Module):
                 norm_layer = getattr(self, f'norm{idx}')
                 x_out = norm_layer(x)
                 outs.append(x_out)
-
-        #import pdb 
-        #pdb.set_trace()
-
         return outs
 
 
