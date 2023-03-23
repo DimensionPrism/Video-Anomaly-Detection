@@ -359,8 +359,8 @@ class FasterNet(nn.Module):
                 x_out = norm_layer(x)
                 outs.append(x_out)
 
-        import pdb 
-        pdb.set_trace()
+        #import pdb 
+        #pdb.set_trace()
 
         return outs
 
