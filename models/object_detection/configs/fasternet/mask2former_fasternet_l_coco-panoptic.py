@@ -13,6 +13,6 @@ model = dict(
             ),
         ),
     panoptic_head=dict(
-        type='Mask2FormerHead', in_channels=[96, 192, 384, 768]),
+        type='Mask2FormerHead', in_channels=[192, 384, 768, 1536]),
     init_cfg=None
 )

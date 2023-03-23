@@ -19,7 +19,7 @@ model = dict(
         init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet50')),
     panoptic_head=dict(
         type='Mask2FormerHead',
-        in_channels=[192, 384, 768, 1536],  # pass to pixel_decoder inside
+        in_channels=[256, 512, 1024, 2048],  # pass to pixel_decoder inside
         strides=[4, 8, 16, 32],
         feat_channels=256,
         out_channels=256,
