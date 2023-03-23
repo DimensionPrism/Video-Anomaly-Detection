@@ -11,6 +11,8 @@ model = dict(
             type='Pretrained',
             checkpoint='./model_ckpt/fasternet_l-epoch.299-val_acc1.83.5060.pth',
             ),
-        # init_cfg=None,
         ),
+    panoptic_head=dict(
+        type='Mask2FormerHead', in_channels=[96, 192, 384, 768]),
+    init_cfg=None
 )
